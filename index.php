@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?php 
     session_start();
 
@@ -53,6 +54,9 @@
     if(!file_exists('upload/add')) mkdir('uploads/add');
     if(!file_exists('upload/pfp')) mkdir('uploads/pfp');
 ?>
+=======
+<?php session_start(); //print_r($_COOKIE); ?>
+>>>>>>> master
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,6 +69,10 @@
 
         <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="templatemo-style.css?v=<?php echo time(); ?>">
+<<<<<<< HEAD
+=======
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+>>>>>>> master
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
     </head>
@@ -80,11 +88,16 @@
 
                             <a href="index.php">
                                 <div style="float: left;">
+<<<<<<< HEAD
                                     <img src="https://drive.google.com/uc?export=view&id=1dNONzGxU2kLCbZaGifdFIpKEenn7vsKh" alt="Venue Logo">
+=======
+                                    <img src="https://live.staticflickr.com/65535/53920110072_e335c9b144_m.jpg" alt="Venue Logo">
+>>>>>>> master
                                 </div>
                             </a>
                             
                             <nav id="primary-nav" class="dropdown cf">
+<<<<<<< HEAD
                                 <ul class="dropdown menu">
                                     <li id="login">
                                         <a style="cursor: pointer;">
@@ -101,6 +114,32 @@
                                             echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
                                         ?>
                                 </ul>
+=======
+                            <ul class="dropdown menu">
+                                <li><a href="index.php">Home</a></li>
+                                <li><a href="add.php">Contribute</a></li>
+                                <li><a href="popular.php">Most Rated</a></li>
+                                <li id="login">
+                                    <a style="cursor: pointer;">
+                                    <?php
+                                        if(isset($_SESSION['user_id'])) echo 'Log out';
+                                        else echo 'Login';
+                                    ?>
+                                    </a>
+                                </li>
+                                <?php
+                                    if(!isset($_SESSION['user_id'])) echo '
+                                    <li id="register">
+                                        <a style="cursor: pointer">
+                                            Register
+                                        </a>
+                                    </li>';
+
+                                    if(isset($_SESSION['user_id']))
+                                    echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
+                                ?>
+                            </ul>
+>>>>>>> master
                             </nav>
                         </div>
                     </div>
@@ -112,7 +151,11 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="submit-form" style="margin-top: 12vh">
+<<<<<<< HEAD
                             <form id="form-submit" action="http://localhost/venue/popular.php" method="post">
+=======
+                            <form id="form-submit" action="popular.php" method="post">
+>>>>>>> master
                                 <div class="row">
                                     <div class="col-md-9">
                                         <fieldset>
