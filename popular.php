@@ -12,13 +12,9 @@
     <link rel="stylesheet" href="templatemo-style.css?v=<?php echo time(); ?>">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/fontawesome-min.css">
-<<<<<<< HEAD
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-=======
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <link rel="stylesheet" href="css/fontAwesome.css">
->>>>>>> master
 </head>
 <body>
 
@@ -29,14 +25,6 @@
                     <div class="col-md-12">
                     <a href="index.php">
                             <div style="float: left;">
-<<<<<<< HEAD
-                                <img src="https://drive.google.com/uc?export=view&id=1dNONzGxU2kLCbZaGifdFIpKEenn7vsKh" alt="Venue Logo">
-                            </div>
-                        </a>
-                        <nav id="primary-nav" class="dropdown cf">
-                            <ul class="dropdown menu">
-                            <li id="login">
-=======
                                 <img src="https://live.staticflickr.com/65535/53920110072_e335c9b144_m.jpg" alt="Venue Logo">
                             </div>
                         </a>
@@ -46,7 +34,6 @@
                                 <li><a href="add.php">Contribute</a></li>
                                 <li><a href="popular.php">Most Rated</a></li>
                                 <li id="login">
->>>>>>> master
                                     <a style="cursor: pointer;">
                                     <?php
                                         if(isset($_SESSION['user_id'])) echo 'Log out';
@@ -54,13 +41,6 @@
                                     ?>
                                     </a>
                                 </li>
-<<<<<<< HEAD
-                                <li><a href="add.php">Add</a></li>
-                                <li><a href="popular.php">Most Rated</a></li>
-                                <?php
-                                if(isset($_SESSION['user_id']))
-                                echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
-=======
                                 <?php
                                     if(!isset($_SESSION['user_id'])) echo '
                                     <li id="register">
@@ -71,7 +51,6 @@
 
                                     if(isset($_SESSION['user_id']))
                                     echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
->>>>>>> master
                                 ?>
                             </ul>
                         </nav>
@@ -111,11 +90,7 @@
         <div id="db_content">
         <?php
         
-<<<<<<< HEAD
-            $con = mysqli_connect('localhost', 'root', '', 'venue');
-=======
             $con = mysqli_connect('localhost', 'root', '', 'venue', 3307);
->>>>>>> master
             $query_run = mysqli_query($con, 'SELECT * FROM locations ORDER BY rating DESC, rating_count DESC');
             if(mysqli_num_rows($query_run) != null)
             {
@@ -128,24 +103,15 @@
                     {
                         if($location[$i] == ' ') $location[$i+1] = strtoupper($location[$i+1]);
                     }
-<<<<<<< HEAD
-                    echo '<div id="'. strtolower($location) .'" class="content">';
-                    echo '<h1 style="color: lightblue; font-size: 6rem; margin-top: 10vh;">'. $location .'</h1>';
-=======
                     echo '<a target="blank" href="example.php?location_id='. $query_row['location_id'] .'" style="text-decoration:none;"><div id="'. strtolower($location) .'" class="content" style="display: flex; flex-direction: column; align-items: center;">';
                     echo '<h1 style="color: lightblue; font-size: 6rem; margin-top: 10vh; width:100%">'. $location .'</h1>';
->>>>>>> master
                     echo '<div id="photos">';
                     $query_run2 = mysqli_query($con, 'SELECT * FROM photos WHERE location_id="'. $query_row['location_id'] .'"');
                     if(mysqli_num_rows($query_run) != null)
                     {
                         while($query_row2 = mysqli_fetch_assoc($query_run2))
                         {
-<<<<<<< HEAD
-                            echo '<img src="'. $query_row2['photo_dir'] .'" alt="'. $query_row2['photo_id'] .'" /> ';
-=======
                             echo '<img src="'. $query_row2['photo_dir'] .'" alt="'. $query_row2['photo_id'] .'" style="border: 2px solid black" /> ';
->>>>>>> master
                         }
                     }
                     echo '
@@ -156,11 +122,7 @@
                             <div style="padding-left: 1vw; float:left;" ><i style="color: yellow; font-size: 300%;" class="fa fa-star-o"></i></div>
                             <div style="padding-left: 1vw; float:left;" ><i style="color: yellow; font-size: 300%;" class="fa fa-star-o"></i></div>
                         </div>
-<<<<<<< HEAD
-                        </div></div>';
-=======
                         </div></div></a>';
->>>>>>> master
                 }
             }
         
@@ -205,13 +167,10 @@
                     content.style.display = 'none'
                 }
             }
-<<<<<<< HEAD
-=======
             
             var topp = document.getElementById('top')
             var wrap = document.getElementById('wrap')
             topp.style.minHeight = (window.innerHeight - wrap.offsetHeight) + 'px';
->>>>>>> master
         })
         $('#locationn').on('keyup', function(){
             $('#form-submit-button').click()
