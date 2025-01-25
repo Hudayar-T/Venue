@@ -99,6 +99,7 @@
                     $location = $query_row['location'];
                     $location[0] = strtoupper($location[0]);
                     $rating = $query_row['rating'];
+                    $location = rtrim($location);
                     for($i=0; $i<strlen($location); $i++)
                     {
                         if($location[$i] == ' ') $location[$i+1] = strtoupper($location[$i+1]);
