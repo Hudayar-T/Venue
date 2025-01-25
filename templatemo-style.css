@@ -332,27 +332,17 @@ section {
 
 section.banner {
   padding: 0px;
-<<<<<<< HEAD
-}
-
-.banner {
-  background-image: url(https://drive.google.com/uc?export=view&id=1p6Jasde5E2QDZZYeWcuDGeThfJUcpXLo);
-=======
   display: block;
 }
 
 .banner {
   background-image: url(https://live.staticflickr.com/65535/53921371444_431ccf8bb5_c.jpg);
->>>>>>> master
   width: 100%;
   background-position: center;
   background-repeat: repeat-y;
   background-size: cover;
-<<<<<<< HEAD
-=======
   color: rgb(211, 211, 178);
   /* color: darkblue; */
->>>>>>> master
 }
 
 .banner .banner-caption {
@@ -413,21 +403,12 @@ a[href="example.php?"]{
 
 #photos{
   
-<<<<<<< HEAD
-  margin-left: auto;
-  margin-right: auto;
-
-  display: flex;
-  width: auto;
-  max-width: 90vw;
-=======
   /* margin-left: auto;
   margin-right: auto; */
 
   display: flex;
   /* width: auto; */
   width: 92vw;
->>>>>>> master
   overflow-x: auto;
   overflow-y: hidden;
   /* float: left; */
@@ -436,11 +417,7 @@ a[href="example.php?"]{
 
 .photos_rating {
   position: absolute;
-<<<<<<< HEAD
-  margin-left: 60vw;
-=======
   margin-left: 65vw;
->>>>>>> master
   margin-top: calc(40vh - 85px);
   width: 30vw;
   height: 65px;
@@ -490,24 +467,14 @@ a[href="example.php?"]{
   color: #4883ff;
 }
 
-<<<<<<< HEAD
-#textarea{
-=======
 #experience{
->>>>>>> master
   width: 100%;
   display: flex;
   border: none;
   resize:vertical;
-<<<<<<< HEAD
-  height: 70px;
-}
-#textarea:focus{
-=======
   height: 90px;
   padding: 10px;
 }
 #experience:focus{
->>>>>>> master
   outline: none;
 }
