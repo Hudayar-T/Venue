@@ -111,7 +111,7 @@
                     {
                         while($query_row2 = mysqli_fetch_assoc($query_run2))
                         {
-                            echo '<img src="'. $query_row2['photo_dir'] .'" alt="'. $query_row2['photo_id'] .'" style="border: 2px solid black" /> ';
+                            echo '<img src="./'. $query_row2['photo_dir'] .'?t='. time() .'" alt="'. $query_row2['photo_id'] .'" style="border: 2px solid black" /> ';
                         }
                     }
                     echo '
