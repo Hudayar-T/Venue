@@ -1,6 +1,36 @@
 
 
 $(document).ready(function(){
+// ------------------------------------ MENU --------------------------------------
+
+    console.log(window.innerWidth);
+    if (window.innerWidth <= 1050) {
+        // Code to run if the screen width is 768px or smaller
+        var menu_icon = document.getElementById("menu_icon");
+        var menu = document.getElementById("menu");
+        var mmenu = document.getElementById("mobile_menu");
+        menu_icon.style.display = "block";
+        mmenu.style.display = "block";
+        menu.style.display="none";
+    } else {
+        // Code to run if the screen width is larger than 768px
+        console.log('The website is opened on a large screen');
+    }
+
+    $('#menu_icon').click(function(){
+        console.log(mmenu.style.height)
+        if(mmenu.style.height=="0px" || mmenu.style.height=="")
+        {
+            menu_icon.style.transform = "rotate(360deg)";
+            mmenu.style.height = mmenu.scrollHeight + "px";
+        }
+        else
+        {
+            menu_icon.style.transform = "rotate(-360deg)";
+            mmenu.style.height = "0px";
+        }
+    })
+
     
 // ------------------------------------ LOGIN AND REGISTER --------------------------------------
 
@@ -11,21 +41,21 @@ $(document).ready(function(){
     login_register_table.style.background = 'lightgray'
     login_register_table.style.border = 'black 2px solid'
     login_register_table.style.borderRadius = '3px'
-    login_register_table.style.textAlign = 'center'
+    // login_register_table.style.textAlign = 'center'
     login_register_table.style.position = 'fixed'
-    login_register_table.style.zIndex = 11
+    login_register_table.style.zIndex = 101
 
     login_register_table.innerHTML = 
-    '<div id="login_table">' +
-    '<h1 id="login_text">Login</h1>' +
+    '<div id="login_table" style="display: flex; justify-content: center; flex-wrap: wrap;">' +
+    '<h1 id="login_text">Вход</h1>' +
     '<err id="login_email_error"></err>' +
-    '<input type="email" name="login_email" id="login_email" placeholder="Email..." required><br>' +
+    '<input type="email" name="login_email" id="login_email" placeholder="Почта..." required><br>' +
     '<err id="login_password_error"></err>' +
-    '<input type="password" name="login_password" id="login_password" placeholder="Password..." required><br>' +
+    '<input type="password" name="login_password" id="login_password" placeholder="Пароль..." required><br>' +
     '<input type="submit" id="login_submit" name="login_submit" value="Submit">'+
     '</div>' +
 
-    '<div id="register_table">' +
+    '<div id="register_table" style="display: flex; justify-content: center; flex-wrap: wrap;">' +
     '<h1 id="register_text">Register</h1>' +
     '<err id="register_name_error"></err>' +
     '<input type="text" name="register_name" id="register_name" placeholder="Full name..." required><br>' +
@@ -42,11 +72,11 @@ $(document).ready(function(){
     var style=document.createElement('style')
     style.innerText = 
     "#login_register_table input{clear:both;}"+
-    "#login_register_table input, #register_pfp_label{width: 35vw; min-width: 262.5px; height: 7vh; margin-bottom: 3.5vh; padding: 1.6vh 0.7vw; background: white; border: 1px black solid;}" +
+    "#login_register_table input, #register_pfp_label{width: 35vw; min-width: 262.5px; height: min(7vh, 10vw); margin-bottom: 3.5vh; padding: 1.6vh 0.7vw; background: white; border: 1px black solid;}" +
     "#login_register_table h1{margin-bottom: 4vh}" +
     "#login_register_table input[type='submit']{width: 10vw; margin: 0 1vw; margin-bottom: 3vh; background-color: rgb(194, 194, 194);}" +
     "err{color: red;}" +
-    "#register_pfp_label{margin: 0 calc(50% - calc(35vw/2)); margin-bottom: 3.5vh;}"
+    "#register_pfp_label{margin-bottom: 3.5vh;}"
 
     var background = document.createElement('div')
     background.setAttribute('id','login_background')
@@ -55,7 +85,7 @@ $(document).ready(function(){
     background.style.width = '100vw'
     background.style.height = '100vh'
     background.style.position = 'fixed'
-    background.style.zIndex = 10
+    background.style.zIndex = 91
     background.style.top = 0
     background.style.left = 0
 
@@ -68,10 +98,12 @@ $(document).ready(function(){
     background.style.display = 'none'
     login_register_table.style.display = 'none'
 
+    $('#moblogin').click(function(){ $('#login').click()})
     $('#login').click(function(){
-        if(document.getElementById('login').innerText == 'Log out')
+        if(document.getElementById('login').innerText == 'Выйти' ||
+           document.getElementById('moblogin').innerText == 'Выйти')
         {
-            if(confirm('Are you sure you want to log out?'))
+            if(confirm('Вы уверены что хотите выйти из аккаунта?'))
             {
                 $.post('sheet.php',
                 {
@@ -94,6 +126,7 @@ $(document).ready(function(){
         }
     })
 
+    $('#mobregister').click(function(){$('#register').click()})
     $('#register').click(function(){
         $('#login_register_table').show()
         $('#login_background').show()

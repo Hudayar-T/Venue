@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="templatemo-style.css?v=<?php echo time(); ?>">
         <link rel="icon" type="image/x-icon" href="favicon.ico">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     </head>
 
@@ -22,41 +23,66 @@
             <header id="header">
                 <div class="container">
                     <div class="row">
-                        <div class="col-md-12">
-                            <button id="primary-nav-button" type="button">Menu</button>
+                        <div class="col-md-12" style="display: flex; justify-content: space-between; align-items: center;">
 
                             <a href="index.php">
-                                <div style="float: left;">
+                                <div style="">
                                     <img src="https://live.staticflickr.com/65535/53920110072_e335c9b144_m.jpg" alt="Venue Logo">
                                 </div>
                             </a>
                             
                             <nav id="primary-nav" class="dropdown cf">
-                            <ul class="dropdown menu">
-                                <li><a href="index.php">Home</a></li>
-                                <li><a href="add.php">Contribute</a></li>
-                                <li><a href="popular.php">Most Rated</a></li>
-                                <li id="login">
+                                <div id="menu_icon">
+                                    <i style="font-size: 4rem;" class="fa fa-bars"></i>
+                                </div>
+                                <ul class="dropdown menu" id="menu">
+                                    <li><a href="index.php">Главная</a></li>
+                                    <li><a href="add.php">Поделиться</a></li>
+                                    <li><a href="popular.php">Лучшие места</a></li>
+                                    <li id="login">
+                                        <a style="cursor: pointer;">
+                                        <?php
+                                            if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                            else echo 'Войти';
+                                        ?>
+                                        </a>
+                                    </li>
+                                    <?php
+                                        if(!isset($_SESSION['user_id'])) echo '
+                                        <li id="register">
+                                            <a style="cursor: pointer">
+                                                Register
+                                            </a>
+                                        </li>';
+
+                                        if(isset($_SESSION['user_id']))
+                                        echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
+                                    ?>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div id="mobile_menu">
+                            <ul>
+                                <li><a href="index.php">Главная</a></li>
+                                <li><a href="add.php">Поделиться</a></li>
+                                <li><a href="popular.php">Лучшие места</a></li>
+                                <li id="moblogin">
                                     <a style="cursor: pointer;">
                                     <?php
-                                        if(isset($_SESSION['user_id'])) echo 'Log out';
-                                        else echo 'Login';
+                                        if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                        else echo 'Войти';
                                     ?>
                                     </a>
                                 </li>
                                 <?php
                                     if(!isset($_SESSION['user_id'])) echo '
-                                    <li id="register">
+                                    <li id="mobregister">
                                         <a style="cursor: pointer">
-                                            Register
+                                            Зарегистрироваться
                                         </a>
                                     </li>';
-
-                                    if(isset($_SESSION['user_id']))
-                                    echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
                                 ?>
                             </ul>
-                            </nav>
                         </div>
                     </div>
                 </div>
@@ -66,28 +92,29 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
-                        <div class="submit-form" style="margin-top: 12vh">
-                            <form id="form-submit" action="popular.php" method="post">
-                                <div class="row">
-                                    <div class="col-md-9">
-                                        <fieldset>
-                                            <input name="location" type="text" class="form-control" id="location" placeholder="Type location..." required="">
-                                        </fieldset>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <fieldset>
-                                            <button type="submit" id="form-submit" class="btn">Search Now</button>
-                                        </fieldset>
-                                    </div>
+                        <div class="submit-form" id="ijefu" style="margin-top: 3vh">
+                            <div class="row" style="padding-bottom: 1vh; width: 100%;">
+                                <div class="col-md-9">
+                                    <fieldset>
+                                        <input name="location" type="text" class="form-control" id="locationn" placeholder="Type location..." required="" value="<?php
+                                            if(isset($_POST['location'])) echo $_POST['location'];
+                                        ?>">
+                                    </fieldset>
                                 </div>
-                            </form>
+                                
+                                <div class="col-md-3">
+                                    <fieldset>
+                                        <button type="submit" id="form-submit-button" class="btn">Search Now</button>
+                                    </fieldset>
+                                </div>
+                            </div>
                         </div>
                         <div class="banner-caption">
                             <div class="line-dec"></div>
-                            <h2>Best Finder For You</h2>
-                            <span>Don't know where to travel? We got you!</span>
+                            <h2>Поисковик "Путешествуй с умом"</h2>
+                            <span>Не знаете куда путешествовать? Не беспокойтесь!</span>
                             <div class="blue-button">
-                                <a class="scrollTo" data-scrollTo="popular" href="popular.php">Discover More</a>
+                                <a class="scrollTo" data-scrollTo="popular" href="popular.php">Лучшие места</a>
                             </div>
                         </div>
                         

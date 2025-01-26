@@ -34,75 +34,102 @@
             ?> 
         ))
         {
-            alert('You are not logged in')
+            alert('Сначала войдите в свой аккаунт')
             location.assign('index.php')
         }
     </script>
     
 
     <div class="wrap" id="wrap">
-        <header id="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <button id="primary-nav-button" type="button">Menu</button>
-                        <a href="index.php">
-                            <div style="float: left;">
-                                <img src="https://live.staticflickr.com/65535/53920110072_e335c9b144_m.jpg" alt="Venue Logo">
-                            </div>
-                        </a>
-                        <nav id="primary-nav" class="dropdown cf">
-                            <ul class="dropdown menu">
-                                <li><a href="index.php">Home</a></li>
-                                <li><a href="add.php">Contribute</a></li>
-                                <li><a href="popular.php">Most Rated</a></li>
-                                <li id="login">
+            <header id="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12" style="display: flex; justify-content: space-between; align-items: center;">
+
+                            <a href="index.php">
+                                <div style="">
+                                    <img src="https://live.staticflickr.com/65535/53920110072_e335c9b144_m.jpg" alt="Venue Logo">
+                                </div>
+                            </a>
+                            
+                            <nav id="primary-nav" class="dropdown cf">
+                                <div id="menu_icon">
+                                    <i style="font-size: 4rem;" class="fa fa-bars"></i>
+                                </div>
+                                <ul class="dropdown menu" id="menu">
+                                    <li><a href="index.php">Главная</a></li>
+                                    <li><a href="add.php">Поделиться</a></li>
+                                    <li><a href="popular.php">Лучшие места</a></li>
+                                    <li id="login">
+                                        <a style="cursor: pointer;">
+                                        <?php
+                                            if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                            else echo 'Войти';
+                                        ?>
+                                        </a>
+                                    </li>
+                                    <?php
+                                        if(!isset($_SESSION['user_id'])) echo '
+                                        <li id="register">
+                                            <a style="cursor: pointer">
+                                                Register
+                                            </a>
+                                        </li>';
+
+                                        if(isset($_SESSION['user_id']))
+                                        echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
+                                    ?>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div id="mobile_menu">
+                            <ul>
+                                <li><a href="index.php">Главная</a></li>
+                                <li><a href="add.php">Поделиться</a></li>
+                                <li><a href="popular.php">Лучшие места</a></li>
+                                <li id="moblogin">
                                     <a style="cursor: pointer;">
                                     <?php
-                                        if(isset($_SESSION['user_id'])) echo 'Log out';
-                                        else echo 'Login';
+                                        if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                        else echo 'Войти';
                                     ?>
                                     </a>
                                 </li>
                                 <?php
                                     if(!isset($_SESSION['user_id'])) echo '
-                                    <li id="register">
+                                    <li id="mobregister">
                                         <a style="cursor: pointer">
-                                            Register
+                                            Зарегистрироваться
                                         </a>
                                     </li>';
-
-                                    if(isset($_SESSION['user_id']))
-                                    echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
                                 ?>
                             </ul>
-                        </nav>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
-    </div>
+            </header>
+        </div>
 
     <section class="banner" id="top">
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-md-offset-1" style="padding: 0;">
-                    <h1 id="add_letter" style="color: rgb(227, 228, 163); margin-top: 5vh; text-align: center;">Tell us where have you been:</h1>
                     <div class="submit-form" id="ijefu" style="margin-top: 3vh; padding: 0; border: none; background: none;">
                         <form id="form-submit" action="" method="post" enctype="multipart/form-data">
+                            <h1 id="add_letter" style="color: rgb(227, 228, 163); margin-top: 5vh; text-align: center;">Где вы побывали? (город)</h1>
                             <div class="row" style="background: #fff">
                                 <div style="width: 100%; padding: 1vh 1vw;">
                                     <fieldset>
-                                        <input name="location" type="text" class="form-control" id="location" placeholder="Type location..." style="font-size: 18px; color: #646464" required="">
+                                        <input name="location" type="text" class="form-control" id="location" placeholder="Название места..." style="font-size: 18px; color: #646464" required="">
                                     </fieldset>
                                 </div>
                             </div>
                             <div class="row" style="background: #fff; z-index: 1000">
                                 <div id="search_result" style="display: none; border: 2px solid black; z-index: 999;"></div>
                             </div>
-                            <h2 style="color: rgb(227, 228, 163); margin-top: 6vh; margin-bottom: 2vh; text-align: center;">Share your photos</h2>
+                            <h2 style="color: rgb(227, 228, 163); margin-top: 6vh; margin-bottom: 2vh; text-align: center;">Фотография</h2>
                             
-                            <i style="color: white; text-decoration: underline;" id="photos_warning">Not more than 5 photos</i> 
+                            <i style="display:block; color: white; text-decoration: underline;" id="photos_warning">Не более 5 фоток</i> 
                             <div class="row" style="background: #fff; padding-top: 3.3vh">
                                 <div>
                                     <fieldset>
@@ -111,14 +138,14 @@
                                 </div>
                             </div>
 
-                            <h2 style="color: rgb(227, 228, 163); margin-top: 6vh; margin-bottom: 2vh; text-align: center;">How was your experience</h2>
+                            <h2 style="color: rgb(227, 228, 163); margin-top: 6vh; margin-bottom: 2vh; text-align: center;">Как вам этот город?</h2>
                             <div class="row" style="background: #fff; font-size: 15px; color: #646464">
                                 <textarea name="experience" id="experience" rows="5"></textarea>
                             </div>
 
 
-                            <h2 style="color: rgb(227, 228, 163); margin-top: 6vh; margin-bottom: 2vh">Rating</h2>
-                            <div id="rating" style="margin-top: 3vh; cursor: pointer;">
+                            <h2 style="color: rgb(227, 228, 163); margin-top: 6vh; margin-bottom: 2vh;">Оценка</h2>
+                            <div id="rating" style="margin-top: 1vh; cursor: pointer;">
                                 <div style="float:left;" onmouseenter="RatingHovered(this)" onmouseleave="RatingUnhovered(this)" onclick="SendRating(this)"><i style="color: yellow; font-size: 4rem;" class="fa fa-star-o"></i></div>
                                 <div style="padding-left: 1vw; float:left;" onmouseenter="RatingHovered(this)" onmouseleave="RatingUnhovered(this)" onclick="SendRating(this)"><i style="color: yellow; font-size: 4rem;" class="fa fa-star-o"></i></div>
                                 <div style="padding-left: 1vw; float:left;" onmouseenter="RatingHovered(this)" onmouseleave="RatingUnhovered(this)" onclick="SendRating(this)"><i style="color: yellow; font-size: 4rem;" class="fa fa-star-o"></i></div>

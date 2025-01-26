@@ -22,22 +22,27 @@
         <header id="header">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                    <a href="index.php">
-                            <div style="float: left;">
+                    <div class="col-md-12" style="display: flex; justify-content: space-between; align-items: center;">
+
+                        <a href="index.php">
+                            <div style="">
                                 <img src="https://live.staticflickr.com/65535/53920110072_e335c9b144_m.jpg" alt="Venue Logo">
                             </div>
                         </a>
+                        
                         <nav id="primary-nav" class="dropdown cf">
-                        <ul class="dropdown menu">
-                                <li><a href="index.php">Home</a></li>
-                                <li><a href="add.php">Contribute</a></li>
-                                <li><a href="popular.php">Most Rated</a></li>
+                            <div id="menu_icon">
+                                <i style="font-size: 4rem;" class="fa fa-bars"></i>
+                            </div>
+                            <ul class="dropdown menu" id="menu">
+                                <li><a href="index.php">Главная</a></li>
+                                <li><a href="add.php">Поделиться</a></li>
+                                <li><a href="popular.php">Лучшие места</a></li>
                                 <li id="login">
                                     <a style="cursor: pointer;">
                                     <?php
-                                        if(isset($_SESSION['user_id'])) echo 'Log out';
-                                        else echo 'Login';
+                                        if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                        else echo 'Войти';
                                     ?>
                                     </a>
                                 </li>
@@ -55,6 +60,29 @@
                             </ul>
                         </nav>
                     </div>
+                    <div id="mobile_menu">
+                        <ul>
+                            <li><a href="index.php">Главная</a></li>
+                            <li><a href="add.php">Поделиться</a></li>
+                            <li><a href="popular.php">Лучшие места</a></li>
+                            <li id="moblogin">
+                                <a style="cursor: pointer;">
+                                <?php
+                                    if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                    else echo 'Войти';
+                                ?>
+                                </a>
+                            </li>
+                            <?php
+                                if(!isset($_SESSION['user_id'])) echo '
+                                <li id="mobregister">
+                                    <a style="cursor: pointer">
+                                        Зарегистрироваться
+                                    </a>
+                                </li>';
+                            ?>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </header>
@@ -65,21 +93,19 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="submit-form" id="ijefu" style="margin-top: 3vh">
-                        <div id="form-submit">
-                            <div class="row" style="padding-bottom: 1vh">
-                                <div class="col-md-9">
-                                    <fieldset>
-                                        <input name="location" type="text" class="form-control" id="locationn" placeholder="Type location..." required="" value="<?php
-                                            if(isset($_POST['location'])) echo $_POST['location'];
-                                        ?>">
-                                    </fieldset>
-                                </div>
-                                
-                                <div class="col-md-3">
-                                    <fieldset>
-                                        <button type="submit" id="form-submit-button" class="btn">Search Now</button>
-                                    </fieldset>
-                                </div>
+                        <div class="row" style="padding-bottom: 1vh; width: 100%;">
+                            <div class="col-md-9">
+                                <fieldset>
+                                    <input name="location" type="text" class="form-control" id="locationn" placeholder="Type location..." required="" value="<?php
+                                        if(isset($_POST['location'])) echo $_POST['location'];
+                                    ?>">
+                                </fieldset>
+                            </div>
+                            
+                            <div class="col-md-3">
+                                <fieldset>
+                                    <button type="submit" id="form-submit-button" class="btn">Найти</button>
+                                </fieldset>
                             </div>
                         </div>
                     </div>
@@ -117,11 +143,11 @@
                     }
                     echo '
                         <div class="photos_rating" rating="'. $rating .'">
-                            <div style="padding-left: 1vw; float:left;" ><i style="color: yellow; font-size: 300%;" class="fa fa-star-o"></i></div>
-                            <div style="padding-left: 1vw; float:left;" ><i style="color: yellow; font-size: 300%;" class="fa fa-star-o"></i></div>
-                            <div style="padding-left: 1vw; float:left;" ><i style="color: yellow; font-size: 300%;" class="fa fa-star-o"></i></div>
-                            <div style="padding-left: 1vw; float:left;" ><i style="color: yellow; font-size: 300%;" class="fa fa-star-o"></i></div>
-                            <div style="padding-left: 1vw; float:left;" ><i style="color: yellow; font-size: 300%;" class="fa fa-star-o"></i></div>
+                            <div class="rating-star"><i style="color: yellow; font-size: min(300%, 8.5vw);" class="fa fa-star-o"></i></div>
+                            <div class="rating-star"><i style="color: yellow; font-size: min(300%, 8.5vw);" class="fa fa-star-o"></i></div>
+                            <div class="rating-star"><i style="color: yellow; font-size: min(300%, 8.5vw);" class="fa fa-star-o"></i></div>
+                            <div class="rating-star"><i style="color: yellow; font-size: min(300%, 8.5vw);" class="fa fa-star-o"></i></div>
+                            <div class="rating-star"><i style="color: yellow; font-size: min(300%, 8.5vw);" class="fa fa-star-o"></i></div>
                         </div>
                         </div></div></a>';
                 }

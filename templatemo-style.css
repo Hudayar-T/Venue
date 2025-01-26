@@ -83,10 +83,6 @@ section {
   clear: both;
 }
 
-.cf {
-  *zoom: 1;
-}
-
 #header {
   overflow: visible;
   position: relative;
@@ -147,8 +143,19 @@ section {
   overflow: hidden; 
 }
 
+#menu_icon{
+  float: right;
+  display: none;
+  transition: transform 1s;
+}
+
 .menu {
   float: right;
+}
+
+#menu{
+  transition: height 1s;
+  overflow: hidden;
 }
 
 .menu li {
@@ -167,7 +174,7 @@ section {
   margin-left: 0px;
 }
 
-.menu li a {
+.menu li a, #mobile_menu a {
   display: block;
   text-decoration: none;
 }
@@ -258,74 +265,28 @@ section {
   content: '\25b8';
 }
 
-#primary-nav.mobile {
-  display: none;
-  position: absolute;
-  top: 100px;
-  background: #fff;
-  width: 100%;
-  right: 15px;
-  left: 0;
-  z-index: 999999;
-}
 
-#primary-nav.mobile .menu {
-  text-align: center;
-  width: 100%;
-}
-
-#primary-nav.mobile li {
-  width: 100%;
-  margin: 0;
-  border-bottom: 1px solid #ddd;
-}
-
-#primary-nav.mobile li:first-child  {
-  width: 100%;
-  margin: 0;
-  border-top: 1px solid #ddd;
-}
-
-#primary-nav.mobile li.selected > a {
-  border-bottom: 1px solid #ddd;
-}
-
-#primary-nav.mobile li:last-child {
-  border: none;
-}
-
-
-#primary-nav.mobile .sub-menu {
-  float: left;
-  position: relative;
-  width: 100%;
-}
-
-#primary-nav.mobile .sub-menu .downarrow {
-  top: 15px;
-  position: absolute;
-  right: 15px;
-}
-
-.mobile .downarrow,
-.mobile .sub-menu .downarrow {
-  position: absolute;
-  top:42px;
-  right: 25px;
-}
-
-#primary-nav.mobile .sub-menu .downarrow:before {
-  content: '\25be';
-}
-#primary-nav-button.mobile {
-  display: inline-block;
-}
 
 #pfp{
   height: 6vh;
   width: 6vh;
   border-radius: 50%;
   border: 0.6px black solid;
+}
+
+#mobile_menu{
+  display: none;
+  height: 0px;
+  overflow: hidden;
+  transition: height 1s;
+  position: absolute;
+  background-color: #fff;
+  z-index: 90;
+  right: 0;
+}
+#mobile_menu li{
+  margin: 15px;
+  margin-left: 15px;
 }
 
 /*--------------------------------------------- Banner Style ------------------------------------------*/
@@ -350,7 +311,7 @@ section.banner {
 }
 
 .banner .banner-caption .line-dec {
-  width: 80px;
+  width: 30%;
   height: 3px;
   background-color: #4883ff;
 }
@@ -376,12 +337,12 @@ section.banner {
 .banner .submit-form {
   border-bottom: 5px solid #4883ff;
   background-color: #fff;
-  padding: 5px 15px;
+  padding: 5px 3px;
   padding-top: 10px;
   /*color:rgb(227, 228, 163)*/
 }
 #ijefu{
-  padding: 0px 15px;
+  /* padding: 0px 5px; */
   padding-top: 10px;
 }
 a[href="example.php?"]:hover{
@@ -417,12 +378,28 @@ a[href="example.php?"]{
 
 .photos_rating {
   position: absolute;
-  margin-left: 65vw;
-  margin-top: calc(40vh - 85px);
-  width: 30vw;
+  display: flex;
+  /* margin-left: 65vw; */
+  right: 5vw;
+  margin-top: calc(40vh - 75px);
+  /* width: 30vw; */
   height: 65px;
 }
 
+.rating-star{
+  padding-left: 1vw;
+  display: flex;
+  align-items: center;
+}
+
+#form-submit{
+  display: flex;
+  /* flex-wrap: wrap; */
+  /* justify-content: center;*/
+  max-width: 85vw;
+  /* align-items: center; */
+  flex-direction: column; /* Make the container stack items vertically */
+}
 
 .submit-form input {
   width: 100%;
@@ -435,6 +412,11 @@ a[href="example.php?"]{
   padding: 0px 10px;
   display: inline-block;
   box-shadow: none;
+}
+
+.submit-form{
+  display: flex;
+  justify-content: center;
 }
 
 .submit-form input:focus{

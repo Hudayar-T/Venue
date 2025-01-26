@@ -41,34 +41,64 @@
 </head>
 <body>
 
-    <div class="wrap" id="wrap">
-        <header id="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <nav id="primary-nav" class="dropdown cf">
+<div class="wrap" id="wrap">
+            <header id="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12" style="display: flex; justify-content: space-between; align-items: center;">
+
                             <a href="index.php">
-                                <div style="float: left;">
+                                <div style="">
                                     <img src="https://live.staticflickr.com/65535/53920110072_e335c9b144_m.jpg" alt="Venue Logo">
                                 </div>
                             </a>
-                            <ul class="dropdown menu">
-                                <li><a href="index.php">Home</a></li>
-                                <li><a href="add.php">Contribute</a></li>
-                                <li><a href="popular.php">Most Rated</a></li>
-                                <li id="login">
+                            
+                            <nav id="primary-nav" class="dropdown cf">
+                                <div id="menu_icon">
+                                    <i style="font-size: 4rem;" class="fa fa-bars"></i>
+                                </div>
+                                <ul class="dropdown menu" id="menu">
+                                    <li><a href="index.php">Главная</a></li>
+                                    <li><a href="add.php">Поделиться</a></li>
+                                    <li><a href="popular.php">Лучшие места</a></li>
+                                    <li id="login">
+                                        <a style="cursor: pointer;">
+                                        <?php
+                                            if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                            else echo 'Войти';
+                                        ?>
+                                        </a>
+                                    </li>
+                                    <?php
+                                        if(!isset($_SESSION['user_id'])) echo '
+                                        <li id="register">
+                                            <a style="cursor: pointer">
+                                                Register
+                                            </a>
+                                        </li>';
+
+                                    ?>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div id="mobile_menu">
+                            <ul>
+                                <li><a href="index.php">Главная</a></li>
+                                <li><a href="add.php">Поделиться</a></li>
+                                <li><a href="popular.php">Лучшие места</a></li>
+                                <li id="moblogin">
                                     <a style="cursor: pointer;">
                                     <?php
-                                        if(isset($_SESSION['user_id'])) echo 'Log out';
-                                        else echo 'Login';
+                                        if(isset($_SESSION['user_id'])) echo 'Выйти';
+                                        else echo 'Войти';
                                     ?>
                                     </a>
                                 </li>
                                 <?php
                                     if(!isset($_SESSION['user_id'])) echo '
-                                    <li id="register">
+                                    <li id="mobregister">
                                         <a style="cursor: pointer">
-                                            Register
+                                            Зарегистрироваться
                                         </a>
                                     </li>';
 
@@ -76,12 +106,11 @@
                                     echo '<li><div id="pfp_div" style="margin-top: 27px"><img id="pfp" src="'. $_SESSION['pfp'] .'" alt="" srcset=""></div></li>';
                                 ?>
                             </ul>
-                        </nav>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
-    </div>
+            </header>
+        </div>
 
     <section class="banner" id="top">
         <div class="db_content" style="padding-top: 15px; display: flex; flex-direction: column; align-items: center">
@@ -137,7 +166,7 @@
                                     }
                         echo    '</div>
                             </div>
-                            <div style="margin-bottom: 5vh; display: inline-block; clear: both; border-radius: 10px; border: 2px dashed grey; padding: 25px; background-color: rgba(128, 128, 128, 0.3); ">
+                            <div style="margin-bottom: 5vh; display: inline-block; clear: both; border-radius: 10px; padding: 25px; background-color: rgba(128, 128, 128, 0.3); ">
                             ';
 
                         // Photos
