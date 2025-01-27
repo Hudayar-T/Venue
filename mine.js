@@ -3,7 +3,6 @@
 $(document).ready(function(){
 // ------------------------------------ MENU --------------------------------------
 
-    console.log(window.innerWidth);
     if (window.innerWidth <= 1050) {
         // Code to run if the screen width is 768px or smaller
         var menu_icon = document.getElementById("menu_icon");
@@ -12,13 +11,9 @@ $(document).ready(function(){
         menu_icon.style.display = "block";
         mmenu.style.display = "block";
         menu.style.display="none";
-    } else {
-        // Code to run if the screen width is larger than 768px
-        console.log('The website is opened on a large screen');
     }
 
     $('#menu_icon').click(function(){
-        console.log(mmenu.style.height)
         if(mmenu.style.height=="0px" || mmenu.style.height=="")
         {
             menu_icon.style.transform = "rotate(360deg)";
@@ -55,7 +50,8 @@ $(document).ready(function(){
     '<input type="submit" id="login_submit" name="login_submit" value="Отправить">'+
     '</div>' +
 
-    '<div id="register_table" style="display: flex; justify-content: center; flex-wrap: wrap;">' +
+    '<div id="register_table" >' +
+    '<form action="upload.php" method="POST" enctype="multipart/form-data" id="register_form" style="display: flex; justify-content: center; flex-wrap: wrap;">' +
     '<h1 id="register_text">Регистрация</h1>' +
     '<err id="register_name_error"></err>' +
     '<input type="text" name="register_name" id="register_name" placeholder="Полное имя..." required><br>' +
@@ -67,6 +63,7 @@ $(document).ready(function(){
     '<input id="register_pfp" type="file" onchange="handlePfpSelection()" name="register_pfp" style="display: none" accept="image/*" >' +
     '<div id="register_pfp_label"><label for="register_pfp" style="display: block; cursor: pointer; height: 100%;">Фото профиля</label></div>' +
     '<input type="submit" id="register_submit" name="register_submit" value="Отправить">' +
+    '</form>' +
     '</div>'
 
     var style=document.createElement('style')
@@ -134,7 +131,7 @@ $(document).ready(function(){
         $("#login_table").hide()
         ErrHide()
         CalcTopLeft()
-        console.log(document.getElementById('register_table'))
+        // console.log(document.getElementById('register_table'))
     })
 
     $('#login_background').click(function(){
@@ -168,7 +165,9 @@ $(document).ready(function(){
         }
     })
 
-    $('#register_submit').click(function(){
+    $('#register_form').submit(function(event) {
+        event.preventDefault(); // Prevent form from submitting normally
+
         ErrHide()
 
         var email = document.getElementById('register_email'),
@@ -183,52 +182,104 @@ $(document).ready(function(){
 
         if(CheckName(name, name_error) && CheckEmail(email, email_error) && CheckPassword(password, password_error) && CheckPfP(pfp, pfp_error))
         {
-            // alert('everything correct')
-            var form_data = new FormData();                  
-            if(pfp != undefined)form_data.append('pfp', pfp);
+            var form_data = new FormData(); // Create FormData object
+
             form_data.append('register_email', email.value)
             form_data.append('register_name', name.value)
             form_data.append('register_password', password.value)
             form_data.append('register_submit', 'Submit')
-            console.log(form_data);                             
+
+            // Append file and other form data to FormData
+            var fileInput = $('#register_pfp')[0].files[0]; // Get the file input (first file)
+            if (fileInput) {
+                form_data.append('pfp', fileInput); // Append file
+            }
+
+            // formData.append('register_email', $('#emailInput').val());  // Append email
+            // formData.append('register_name', $('#nameInput').val());    // Append name
+            // formData.append('register_password', $('#passwordInput').val()); // Append password
+
+            // Make AJAX request to PHP
             $.ajax({
-                url: 'sheet.php', // <-- point to server-side PHP script 
-                dataType: 'text',  // <-- what to expect back from the PHP script, if anything
-                cache: false,
-                contentType: false,
-                processData: false,
-                data: form_data,                       
-                type: 'post',
-                success: function(php_script_response){
-                    if(php_script_response == '')
-                    {
-                        $('#login_email').val('')
-                        $('#login_password').val('')
-                        $('#register_name').val('')
-                        $('#register_email').val('')
-                        $('#register_password').val('')
-                        $('#register_text').html('Успешно!')
-                        $('#register_text').css("color", "green")
-                        setTimeout(function(){
-                            $('#register_text').html('Register')
-                            $('#register_text').css("color", "black")
-                            $('#login_background').click()
+                url: 'sheet.php',  // PHP file that handles the upload
+                type: 'POST',
+                data: form_data,
+                contentType: false,  // Tell jQuery not to set content type
+                processData: false,  // Tell jQuery not to process the data
+                success: function(response) {
+                    if(response == '')
+                        {
+                            $('#login_email').val('')
+                            $('#login_password').val('')
+                            $('#register_name').val('')
+                            $('#register_email').val('')
+                            $('#register_password').val('')
+                            $('#register_text').html('Успешно!')
+                            $('#register_text').css("color", "green")
                             setTimeout(function(){
-                                $('#login').click()
-                            }, 800)
-                        }, 900)
-                    }
-                    else if(php_script_response == 'email_1')
-                    {
-                        email_error.innerText = 'Аккаунт с такой почтой уже существует';
-                        document.getElementById('email').style.border = '1px solid red';
-                    }
-                    else console.log(php_script_response)
+                                $('#register_text').html('Register')
+                                $('#register_text').css("color", "black")
+                                $('#login_background').click()
+                                setTimeout(function(){
+                                    $('#login').click()
+                                }, 800)
+                            }, 900)
+                        }
+                        else if(response == 'email_1')
+                        {
+                            email_error.innerText = 'Аккаунт с такой почтой уже существует';
+                            document.getElementById('email').style.border = '1px solid red';
+                        }
+                        else alert("Error: "+response)
+                },
+                error: function(xhr, status, error) {
+                    // Handle any errors that occur during the request
+                    console.log('An error occurred: ' + error);
                 }
             });
         }
-    })
+    });
+/*
+    $('#register_submit').click(function(){
 
+
+        if(CheckName(name, name_error) && CheckEmail(email, email_error) && CheckPassword(password, password_error) && CheckPfP(pfp, pfp_error))
+        {
+            // alert('everything correct')
+            var form_data = new FormData();                  
+            if(pfp != undefined)form_data.append('pfp', pfp);
+
+            // console.log(form_data);
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "sheet.php", true); // Send data to upload.php
+
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    // Success: Display response from PHP
+                    console.log(xhr.responseText);
+                } else {
+                    // If server responds with an error code
+                    console.log(xhr.status);
+                }
+            };
+
+            xhr.send(form_data); // Send the FormData (containing the file) to the server                  
+            // $.ajax({
+            //     url: 'sheet.php', // <-- point to server-side PHP script 
+            //     dataType: 'text',  // <-- what to expect back from the PHP script, if anything
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     data: form_data,                       
+            //     type: 'post',
+            //     success: function(php_script_response){
+                
+            //     }
+            // });
+        }
+    })
+*/
     const login_password = document.getElementById('login_password');
     const register_password = document.getElementById('register_password');
 
@@ -321,7 +372,7 @@ function CheckPassword(password, password_error)
 function CheckPfP(pfp, pfp_error)
 {
     //---------------------------------- CORRECTING FILE ----------------------------------
-    console.log(pfp)
+    // console.log(pfp)
     if(pfp.length == 0) return 1;
     pfp=pfp[0];
     var extensions = ['tif', 'tiff', 'bmp', 'jpg', 'JPG', 'JPEG', 'jpeg', 'gif', 'png', 'eps', 'raw', 'cr2', 'nef', 'orf', 'sr2', 'ico', 'webp', 'pjp', 'jfif', 'jxl']
