@@ -14,7 +14,7 @@
                 $onclick = 
                 '
                     this.parentNode.parentNode.parentNode
-                    .children[0].children[0].children[0].children[0].value = `'. $query_row['location'] .'`; 
+                    .children[1].children[0].children[0].children[0].value = `'. $query_row['location'] .'`; 
                     $(`#search_result`).hide(); 
                     //document.getElementById(`search_result_background`).remove();
                     var location = document.getElementById(`location`);
@@ -54,7 +54,6 @@
                 echo $query_row['experience'];
             }
         }
-        else echo 'Your overall thoughts';
     }
 
     if(isset($_POST['register_email']))
