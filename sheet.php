@@ -64,7 +64,7 @@
         $password = $_POST['register_password'];
         $true = true;
         $user_id = 1;
-        //$_FILES['pfp']['name'])['extension'];
+        
 
         $con = mysqli_connect('localhost', 'root', '', 'venue', 3307);
         $sql = "SELECT email, user_id FROM users WHERE email='". $email ."'";
@@ -81,13 +81,28 @@
                 $user_id = $row['highest_user_id']+1;
             }
 
+            // echo strval(isset($_FILES['pfp'])) . ' - isset';
             $pfp_path = "https://live.staticflickr.com/65535/53921919897_c76eb4b3a9_b.jpg";
-            echo(isset($_FILES['pfp']));
-            if(isset($_FILES['pfp']))
+            if(isset($_POST['pfp']))
             {
-                echo 'pfp is isset';
-                move_uploaded_file($_FILES['pfp']['tmp_name'],'uploads/pfp/' . $user_id . '.' . pathinfo($_FILES['pfp']['name'])['extension']);
-                $pfp_path = 'uploads/pfp/'. $user_id .'.' . pathinfo($_FILES["pfp"]["name"])["extension"];
+                // $file = $_POST['pfp'];
+
+                // if ($file['error'] === UPLOAD_ERR_OK) {
+                    // $fileTmpPath = $file['tmp_name'];
+                    // $fileName = $file['name'];
+                    
+                    // // Set the upload directory (this could be a path to your cloud storage or local path)
+                    // $uploadDir = 'uploads/profile_pictures/';
+                    // $newFilePath = $uploadDir . basename($fileName);
+            
+                    // // Move the file to the desired directory (or cloud storage)
+                    // if (move_uploaded_file($fileTmpPath, $newFilePath)) {
+                    //     echo 'File successfully uploaded and moved to ' . $newFilePath;
+                    // }
+                    print_r( $_FILES);
+                    // move_uploaded_file($_POST['pfp']['tmp_name'],'uploads/pfp/' . $user_id . '.' . pathinfo($_POST['pfp']['name'])['extension']);
+                    // $pfp_path = 'uploads/pfp/'. $user_id .'.' . pathinfo($_POST["pfp"]["name"])["extension"];
+                // }
             }
 
             $sql = 'INSERT INTO users (full_name, email, password, user_photo) VALUES ("'. $name .'", "'. $email .'", "'. $password .'", "'. $pfp_path .'")';

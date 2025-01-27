@@ -52,21 +52,21 @@ $(document).ready(function(){
     '<input type="email" name="login_email" id="login_email" placeholder="Почта..." required><br>' +
     '<err id="login_password_error"></err>' +
     '<input type="password" name="login_password" id="login_password" placeholder="Пароль..." required><br>' +
-    '<input type="submit" id="login_submit" name="login_submit" value="Submit">'+
+    '<input type="submit" id="login_submit" name="login_submit" value="Отправить">'+
     '</div>' +
 
     '<div id="register_table" style="display: flex; justify-content: center; flex-wrap: wrap;">' +
-    '<h1 id="register_text">Register</h1>' +
+    '<h1 id="register_text">Регистрация</h1>' +
     '<err id="register_name_error"></err>' +
-    '<input type="text" name="register_name" id="register_name" placeholder="Full name..." required><br>' +
+    '<input type="text" name="register_name" id="register_name" placeholder="Полное имя..." required><br>' +
     '<err id="register_email_error"></err>' +
-    '<input type="email" name="register_email" id="register_email" placeholder="Email..." required><br>' +
+    '<input type="email" name="register_email" id="register_email" placeholder="Почта..." required><br>' +
     '<err id="register_password_error"></err>' +
-    '<input type="password" name="register_password" id="register_password" placeholder="Password..." required><br>' +
+    '<input type="password" name="register_password" id="register_password" placeholder="Пароль..." required><br>' +
     '<err id="register_pfp_error"></err>' +
     '<input id="register_pfp" type="file" onchange="handlePfpSelection()" name="register_pfp" style="display: none" accept="image/*" >' +
-    '<div id="register_pfp_label"><label for="register_pfp" style="display: block; cursor: pointer; height: 100%;">Profile Picture</label></div>' +
-    '<input type="submit" id="register_submit" name="register_submit" value="Submit">' +
+    '<div id="register_pfp_label"><label for="register_pfp" style="display: block; cursor: pointer; height: 100%;">Фото профиля</label></div>' +
+    '<input type="submit" id="register_submit" name="register_submit" value="Отправить">' +
     '</div>'
 
     var style=document.createElement('style')
@@ -75,8 +75,8 @@ $(document).ready(function(){
     "#login_register_table input, #register_pfp_label{width: 35vw; min-width: 262.5px; height: min(7vh, 10vw); margin-bottom: 3.5vh; padding: 1.6vh 0.7vw; background: white; border: 1px black solid;}" +
     "#login_register_table h1{margin-bottom: 4vh}" +
     "#login_register_table input[type='submit']{width: 10vw; margin: 0 1vw; margin-bottom: 3vh; background-color: rgb(194, 194, 194);}" +
-    "err{color: red;}" +
-    "#register_pfp_label{margin-bottom: 3.5vh;}"
+    "err{color: red; width: 100%; text-align: center;}" +
+    "#register_pfp_label{margin-bottom: 3.5vh; display: flex; align-items: center; justify-content: center;}"
 
     var background = document.createElement('div')
     background.setAttribute('id','login_background')
@@ -207,7 +207,7 @@ $(document).ready(function(){
                         $('#register_name').val('')
                         $('#register_email').val('')
                         $('#register_password').val('')
-                        $('#register_text').html('Success!')
+                        $('#register_text').html('Успешно!')
                         $('#register_text').css("color", "green")
                         setTimeout(function(){
                             $('#register_text').html('Register')
@@ -220,10 +220,10 @@ $(document).ready(function(){
                     }
                     else if(php_script_response == 'email_1')
                     {
-                        email_error.innerText = 'This email is already in use';
+                        email_error.innerText = 'Аккаунт с такой почтой уже существует';
                         document.getElementById('email').style.border = '1px solid red';
                     }
-                    else alert(php_script_response)
+                    else console.log(php_script_response)
                 }
             });
         }
@@ -253,21 +253,21 @@ function CheckName(name, name_err)
     //----------------------------------- CORRECTING FULL NAME ------------------------------------
     if(name.value == '' && name.style.display != 'none')
     {
-        name_err.innerText = 'Name can\'t be empty';
+        name_err.innerText = 'Имя не может быть пустым';
         name.style.border = '1px solid red';
         return 0;
     }
 
     else if(name.value.length < 3 && name.style.display != 'none')
     {
-        name_err.innerText = 'Name is too short'
+        name_err.innerText = 'Имя слишком короткое'
         name.style.border = '1px solid red';
         return 0;
     }
 
     else if(name.value.length > 30 && name.style.display != 'none')
     {
-        name_err.innerText = 'Name is too long';
+        name_err.innerText = 'Имя слишком длинное';
         name.style.border = '1px solid red';
         return 0;
     }
@@ -285,7 +285,7 @@ function CheckEmail(email, email_error)
     };
     if(!validateEmail(email.value))
     {
-        email_error.innerText = 'Invalid email'
+        email_error.innerText = 'Некорректная почта'
         email.style.border = '1px solid red';
         return 0;
     }
@@ -297,21 +297,21 @@ function CheckPassword(password, password_error)
     //--------------------------------- CORRECTING PASSWORD ------------------------------------
     if(password.value == '')
     {
-        password_error.innerText = 'Password can\'t be empty'
+        password_error.innerText = 'Пароль не может быть пустым'
         password.style.border = '1px solid red';
         return 0;
     }
 
     else if(password.value.length < 8)
     {
-        password_error.innerText = 'Password can\'t be less than 8 characters'
+        password_error.innerText = 'Пароль должен содержать не менее 8 символов'
         password.style.border = '1px solid red';
         return 0;
     }
 
     else if(password.value.length > 16)
     {
-        password_error.innerText = 'Password can\'t be more than 16 characters'
+        password_error.innerText = 'Пароль должен содержать менее 16 символов'
         password.style.border = '1px solid red';
         return 0;
     }
@@ -327,7 +327,7 @@ function CheckPfP(pfp, pfp_error)
     var extensions = ['tif', 'tiff', 'bmp', 'jpg', 'JPG', 'JPEG', 'jpeg', 'gif', 'png', 'eps', 'raw', 'cr2', 'nef', 'orf', 'sr2', 'ico', 'webp', 'pjp', 'jfif', 'jxl']
     if(!extensions.includes(pfp.name.substring(pfp.name.lastIndexOf('.')+1, pfp.name.length).toLowerCase()))
     {
-        pfp_error.innerText = 'This file is not an image'
+        pfp_error.innerText = 'Выбранный файл не является фотографией'
         document.getElementById('register_pfp_label').style.border = '1px solid red';
         return 0;
     }
@@ -348,7 +348,7 @@ function ErrHide()
     document.getElementById('register_email').style.border = '1px solid black'
     document.getElementById('register_password').style.border = '1px solid black'
     document.getElementById('register_pfp_label').style.border = '1px solid black'
-    document.getElementById('register_pfp_label').children[0].innerHTML = 'Profile Picture'
+    document.getElementById('register_pfp_label').children[0].innerHTML = 'Фото Профиля'
 }
 function Search(string, char)
 {
@@ -369,5 +369,5 @@ function CalcTopLeft()
 function handlePfpSelection()
 {
     let label = document.getElementById("register_pfp_label");
-    label.children[0].innerHTML="<b style='color: green'>Selected</b>";
+    label.children[0].innerHTML="<b style='color: green'>Выбрано</b>";
 }

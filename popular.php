@@ -50,7 +50,7 @@
                                     if(!isset($_SESSION['user_id'])) echo '
                                     <li id="register">
                                         <a style="cursor: pointer">
-                                            Register
+                                            Зарегистрироваться
                                         </a>
                                     </li>';
 

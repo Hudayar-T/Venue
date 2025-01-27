@@ -389,7 +389,7 @@ a[href="example.php?"]{
 .rating-star{
   padding-left: 1vw;
   display: flex;
-  align-items: center;
+  align-items: end;
 }
 
 #form-submit{

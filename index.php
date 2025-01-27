@@ -94,24 +94,24 @@
                     <div class="col-md-10 col-md-offset-1">
                         <div class="submit-form" id="ijefu" style="margin-top: 3vh">
                             <div class="row" style="padding-bottom: 1vh; width: 100%;">
-                                <div class="col-md-9">
-                                    <fieldset>
-                                        <input name="location" type="text" class="form-control" id="locationn" placeholder="Type location..." required="" value="<?php
-                                            if(isset($_POST['location'])) echo $_POST['location'];
-                                        ?>">
-                                    </fieldset>
-                                </div>
-                                
-                                <div class="col-md-3">
-                                    <fieldset>
-                                        <button type="submit" id="form-submit-button" class="btn">Search Now</button>
-                                    </fieldset>
-                                </div>
+                                <form action="popular.php" method="post">
+                                        <div class="col-md-9">
+                                            <fieldset>
+                                                <input name="location" type="text" class="form-control" id="locationn" placeholder="Напишите название города..." required="" value="">
+                                            </fieldset>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <fieldset>
+                                                <button type="submit" id="form-submit-button" class="btn">Поиск</button>
+                                            </fieldset>
+                                        </div>
+                                </form>
                             </div>
                         </div>
                         <div class="banner-caption">
                             <div class="line-dec"></div>
-                            <h2>Поисковик "Путешествуй с умом"</h2>
+                            <h2>Путешествуй с умом</h2>
                             <span>Не знаете куда путешествовать? Не беспокойтесь!</span>
                             <div class="blue-button">
                                 <a class="scrollTo" data-scrollTo="popular" href="popular.php">Лучшие места</a>
